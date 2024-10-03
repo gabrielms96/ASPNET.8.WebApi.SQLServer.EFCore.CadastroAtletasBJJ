@@ -42,9 +42,23 @@ namespace WebApi8.CadastroAtletasBJJ.Controllers
 
 
         [HttpPost("CriarEquipe")]
-        public async Task<ActionResult<ResponseModel<EquipeModel>>> CriarEquipe(EquipeCriacaoDTO equipeCriacaoDTO)
+        public async Task<ActionResult<ResponseModel<List<EquipeModel>>>> CriarEquipe(EquipeCriacaoDTO equipeCriacaoDTO)
         {
             var equipe = await _equipeInterface.CriarEquipe(equipeCriacaoDTO);
+            return Ok(equipe);
+        }
+
+        [HttpPut("EditarEquipe")]
+        public async Task<ActionResult<ResponseModel<List<EquipeModel>>>> EditarEquipe(EquipeEdicaoDTO equipeCriacaoDTO)
+        {
+            var equipe = await _equipeInterface.EditarEquipe(equipeCriacaoDTO);
+            return Ok(equipe);
+        }
+
+        [HttpDelete("ExcluirEquipe")]
+        public async Task<ActionResult<ResponseModel<List<EquipeModel>>>> ExcluirEquipe(int IdEquipe)
+        {
+            var equipe = await _equipeInterface.ExcluirEquipe(IdEquipe);
             return Ok(equipe);
         }
     }
