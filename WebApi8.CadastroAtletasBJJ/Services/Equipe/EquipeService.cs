@@ -95,9 +95,38 @@ namespace WebApi8.CadastroAtletasBJJ.Services.Equipe
             }
         }
 
-        public Task<ResponseModel<List<EquipeModel>>> EditarEquipe(EquipeEdicaoDTO equipeCriacaoDTO)
+        public async Task<ResponseModel<List<EquipeModel>>> EditarEquipe(EquipeEdicaoDTO equipeEdicaoDTO)
         {
-            throw new NotImplementedException();
+            ResponseModel<List<EquipeModel>> RespostaListaEquipe = new ResponseModel<List<EquipeModel>>();
+
+            try
+            {
+
+                var equipe = _context.Equipes.FirstOrDefault(equipeBanco => equipeBanco.Id == equipeEdicaoDTO.Id);
+
+
+                if (equipe == null)
+                {
+                    RespostaListaEquipe.Mensagem = $"Nenhuma equipe com o ID {equipeEdicaoDTO.Id} foi encontrada.";
+                    return RespostaListaEquipe;
+                }
+
+                equipe.NomeEquipe = equipeEdicaoDTO.NomeEquipe;
+
+                _context.Update(equipe);
+                await _context.SaveChangesAsync();
+
+                RespostaListaEquipe.Dados = await _context.Equipes.ToListAsync();
+                RespostaListaEquipe.Mensagem = $"Equipe editada com sucesso.";
+                return RespostaListaEquipe;
+
+            }
+            catch (Exception ex)
+            {
+                RespostaListaEquipe.Mensagem = ex.Message;
+                RespostaListaEquipe.Status = false;
+                return RespostaListaEquipe;
+            }
         }
 
         public async Task<ResponseModel<List<EquipeModel>>> ExcluirEquipe(int IdEquipe)
@@ -118,9 +147,9 @@ namespace WebApi8.CadastroAtletasBJJ.Services.Equipe
                 await _context.SaveChangesAsync();
 
                 RespostaListaEquipe.Dados = await _context.Equipes.ToListAsync();
+                RespostaListaEquipe.Mensagem = "Equipe removida com sucesso.";
 
                 return RespostaListaEquipe;
-
 
             }
             catch (Exception ex)
