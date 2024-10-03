@@ -4,5 +4,7 @@
     {
         public string NomeEquipe { get; set; }
 
+
+
     }
 }
