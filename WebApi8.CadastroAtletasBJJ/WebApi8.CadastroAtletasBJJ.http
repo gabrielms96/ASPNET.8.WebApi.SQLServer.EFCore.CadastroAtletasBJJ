@@ -1,0 +1,6 @@
+@WebApi8.CadastroAtletasBJJ_HostAddress = http://localhost:5240
+
+GET {{WebApi8.CadastroAtletasBJJ_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
