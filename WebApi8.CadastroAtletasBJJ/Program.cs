@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WebApi8.CadastroAtletasBJJ.Data;
+using WebApi8.CadastroAtletasBJJ.Services.Atleta;
 using WebApi8.CadastroAtletasBJJ.Services.Equipe;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,7 @@ builder.Services.AddSwaggerGen();
 
 //RELACIONANDO A INTERFACE DE EQUIPE COM EQUIPE
 builder.Services.AddScoped<IEquipeInterface, EquipeService>();
+builder.Services.AddScoped<IAtletaService, AtletaService>();
 
 //CONEXÃO COM O BANCO DE DADOS OLHANDO O APPSETTINGS
 builder.Services.AddDbContext<AppDbContext>(options =>
